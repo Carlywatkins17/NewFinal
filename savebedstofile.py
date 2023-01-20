@@ -7,14 +7,14 @@
 
 from createbeds1 import bed 
 from datetime import date, timedelta, datetime
-from beduserinput import beds, getuserresponse
+#from beduserinput import beds, getuserresponse
 import json
 
 # writes the user input/class data to a file as json       
-def save_beds():
+def save_beds(beds):
     f = open('../NewFinal/the_beds_list.json', 'w')
     f.write(' \n')
-    getuserresponse() 
+    #getuserresponse() 
     bed_data={}
     bed_json=[]
 

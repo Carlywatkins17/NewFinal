@@ -125,7 +125,16 @@ class PlantWitch(QWidget):
         self.label5.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.label5.setStyleSheet("QLabel {color: black; text-align: center; font-size: 20px;}")
 
-        # Create a layout
+    # Begin integrating beduserinput and plantuserinput questions here 
+        self.lblLength = QLabel("What is the length of " + garden_name + "?", self)
+        self.lblLength.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.lblLength.setStyleSheet("QLabel {color: black; text-align: center; font-size: 80px;}")
+
+        
+        self.txtLength = QLineEdit(self)
+        self.txtLength.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.txtLength.setStyleSheet("QLineEdit {background-color: black; font-size: 40px; border-radius: 8px; border: 1px solid; border-color: orange; padding: 5px 15px; outline: 0px; color: orange;}")
+        
         self.vbox.addWidget(self.label4)
         self.vbox.addWidget(self.label5)
         self.vbox.addStretch()

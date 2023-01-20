@@ -18,12 +18,14 @@ from fertilization import fert_cal, nfd
 import json
 from os.path import exists
 
-print('Welcome to Plant-Witch 2023!')
-user = input('What is your name?: ')
-garden = input('What is your garden name?: ')
-print('Thank you ' + user + '.' + ' Let\'s start your garden!')
+#print('Welcome to Plant-Witch 2023!')
+#user = input('What is your name?: ')
+#garden = input('What is your garden name?: ')
+# print('Thank you ' + user + '.' + ' Let\'s start your garden!')
 
-save_beds()
+beds={}
+getuserresponse(beds)
+save_beds(beds)
 
 sched = input('Are you on schedule for fertilizing? yes or no:')
 if sched == 'no':

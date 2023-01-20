@@ -11,8 +11,8 @@ from datetime import date, timedelta, datetime
 import json
 
 # solicits user input on the garden beds
-beds = {}
-def getuserresponse():
+#beds = {}
+def getuserresponse(beds):
     QN = input('What is the bed name? Enter "done" if finished:') 
     while QN != 'done':
         QL = input('What is the length of ' + QN + ' ?: ')
