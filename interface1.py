@@ -18,10 +18,6 @@ from fertilization import fert_cal, nfd
 import json
 from os.path import exists
 
-#print('Welcome to Plant-Witch 2023!')
-#user = input('What is your name?: ')
-#garden = input('What is your garden name?: ')
-# print('Thank you ' + user + '.' + ' Let\'s start your garden!')
 
 beds={}
 getuserresponse(beds)

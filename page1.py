@@ -14,6 +14,7 @@
 #https://stackoverflow.com/questions/10082299/qvboxlayout-how-to-vertically-align-widgets-to-the-top-instead-of-the-center
 #https://www.pythonguis.com/tutorials/pyqt6-qscrollarea/ This is how I learned to add a scroll bar
 
+
 import sys
 from PyQt6.QtWidgets import QApplication, QLabel, QLineEdit, QPushButton, QVBoxLayout, QWidget, QScrollArea, QScrollBar, QMainWindow
 from PyQt6.QtCore import Qt, QSize
@@ -28,53 +29,45 @@ from plantuserinput import getuserresponse, plant_names, herb_deets, veg_deets, 
 #from size import dimension, soil
 #from savebedstofile import save_beds
 #from fertilization import fert_cal, nfd
-from page1 import page1
+from userinteractiontest import PlantWitch
+from page2 import page2
 import json
 from os.path import exists
 
-  
-beds={}
-plant_names = {}
-herb_deets = {}
-veg_deets = {}
-flower_deets = {}
-
-#getuserresponse(beds)
-#save_beds(beds)
-#getuserresponse(plant_names)
-#save_plants(plant_names)
 
 
+class page1(QWidget):
 
-class PlantWitch(QMainWindow):
-    def __init__(self):
+    def __init__(self, plantwitch):
         super().__init__()
-        self.beds={}
-        self.initUI()
+
+
+        self.plantwitch=plantwitch  
         
+        self.welcomelbl = QLabel("Welcome to Plant Witch 2023!")
+        self.welcomelbl.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.welcomelbl.setStyleSheet("QLabel {color: black; text-align: center; font-size: 100px;}")
 
-    def initUI(self):
+        # Create a button for the first page
+        self.welcomebtn = QPushButton("Click here to get started")
+        self.welcomebtn.setStyleSheet("QPushButton {background-color: black; font-size: 40px; border-radius: 8px; border: 1px solid; border-color: orange; padding: 5px 15px; outline: 0px; color: orange;}")
+        #self.button1.setGeometry(50,50,50,500)
+        self.welcomebtn.clicked.connect(self.nextpage)
 
-        self.scroll = QScrollArea()             # Scroll Area which contains the widgets, set as the centralWidget
-        self.widget = page1(self)                 # Widget that contains the collection of Vertical Box
-        self.vbox = QVBoxLayout() 
-        
-        self.scroll.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
-        self.scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
-        self.scroll.setWidgetResizable(True)
-        self.scroll.setWidget(self.widget)
+        # Create a layout
+        self.vbox = QVBoxLayout(self)
+        self.vbox.addStretch()
+        self.vbox.addWidget(self.welcomelbl)
+        self.vbox.setSpacing(100)
+        self.vbox.addWidget(self.welcomebtn)
 
-        self.setCentralWidget(self.scroll)
+        #self.button1.setGeometry(50,50,50,500)
+        self.vbox.addStretch()
+        self.setLayout(self.vbox)
+        self.setGeometry(1000, 1000, 1500, 1000)
+        self.setContentsMargins(100,100,100,100)
+        self.setWindowTitle("Plant Witch 2023")
+        self.setStyleSheet("background-color: green;")
 
-        self.setGeometry(600, 100, 1000, 900)
-        self.setWindowTitle(' ')
-        self.show()
-
-    def change_pg(page):
-        self.widget=page 
-
-             
-if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    ex = PlantWitch()
-    sys.exit(app.exec())
+    def nextpage(self):
+        self.plantwitch.change_pg(page2(self.plantwitch))
