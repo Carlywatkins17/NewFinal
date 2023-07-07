@@ -14,26 +14,27 @@
 #https://stackoverflow.com/questions/10082299/qvboxlayout-how-to-vertically-align-widgets-to-the-top-instead-of-the-center
 #https://www.pythonguis.com/tutorials/pyqt6-qscrollarea/ This is how I learned to add a scroll bar
 
+#from createbeds1 import bed
+#from createplants import plants, herbs, vegetables, flowers
+#from saveplantstofile import save_plants
+#from plantuserinput import getuserresponse, plant_names, herb_deets, veg_deets, flower_deets
+#from beduserinput import getuserresponse, beds
+#from beduserinputGUI import getuserresponse, beds
+#from size import dimension, soil
+#from savebedstofile import save_beds
+#from fertilization import fert_cal, nfd
+#from userinteractiontest import PlantWitch, change_pg
+
 
 import sys
 from PyQt6.QtWidgets import QApplication, QLabel, QLineEdit, QPushButton, QVBoxLayout, QWidget, QScrollArea, QScrollBar, QMainWindow
 from PyQt6.QtCore import Qt, QSize
 from PyQt6 import *
 from datetime import date, timedelta, datetime
-from createbeds1 import bed
-from createplants import plants, herbs, vegetables, flowers
-from saveplantstofile import save_plants
-from plantuserinput import getuserresponse, plant_names, herb_deets, veg_deets, flower_deets
-#from beduserinput import getuserresponse, beds
-#from beduserinputGUI import getuserresponse, beds
-#from size import dimension, soil
-#from savebedstofile import save_beds
-#from fertilization import fert_cal, nfd
-from userinteractiontest import PlantWitch
 from page2 import page2
 import json
 from os.path import exists
-
+from storage import names
 
 
 class page1(QWidget):
@@ -62,7 +63,7 @@ class page1(QWidget):
         self.vbox.addWidget(self.welcomebtn)
 
         #self.button1.setGeometry(50,50,50,500)
-        self.vbox.addStretch()
+        
         self.setLayout(self.vbox)
         self.setGeometry(1000, 1000, 1500, 1000)
         self.setContentsMargins(100,100,100,100)
@@ -70,4 +71,5 @@ class page1(QWidget):
         self.setStyleSheet("background-color: green;")
 
     def nextpage(self):
-        self.plantwitch.change_pg(page2(self.plantwitch))
+        self.plantwitch.change_page(page2)
+        #self.plantwitch.change_page(page2(self.plantwitch))

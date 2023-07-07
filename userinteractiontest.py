@@ -13,32 +13,12 @@
 #https://www.pythontutorial.net/pyqt/qt-style-sheets/
 #https://stackoverflow.com/questions/10082299/qvboxlayout-how-to-vertically-align-widgets-to-the-top-instead-of-the-center
 #https://www.pythonguis.com/tutorials/pyqt6-qscrollarea/ This is how I learned to add a scroll bar
-
-import sys
-from PyQt6.QtWidgets import QApplication, QLabel, QLineEdit, QPushButton, QVBoxLayout, QWidget, QScrollArea, QScrollBar, QMainWindow
-from PyQt6.QtCore import Qt, QSize
-from PyQt6 import *
-from datetime import date, timedelta, datetime
-from createbeds1 import bed
-from createplants import plants, herbs, vegetables, flowers
-from saveplantstofile import save_plants
-from plantuserinput import getuserresponse, plant_names, herb_deets, veg_deets, flower_deets
+#from plantuserinput import getuserresponse, plant_names, herb_deets, veg_deets, flower_deets
 #from beduserinput import getuserresponse, beds
 #from beduserinputGUI import getuserresponse, beds
 #from size import dimension, soil
 #from savebedstofile import save_beds
 #from fertilization import fert_cal, nfd
-from page1 import page1
-import json
-from os.path import exists
-
-  
-beds={}
-plant_names = {}
-herb_deets = {}
-veg_deets = {}
-flower_deets = {}
-
 #getuserresponse(beds)
 #save_beds(beds)
 #getuserresponse(plant_names)
@@ -46,9 +26,21 @@ flower_deets = {}
 
 
 
+import sys
+from typing import Self
+from PyQt6.QtWidgets import QApplication, QVBoxLayout, QScrollArea, QMainWindow, QPushButton, QWidget
+from PyQt6.QtCore import Qt
+from PyQt6 import *
+from PyQt6 import uic
+from page1 import page1
+from os.path import exists
+
+
+
 class PlantWitch(QMainWindow):
     def __init__(self):
         super().__init__()
+        self.names={}
         self.beds={}
         self.initUI()
         
@@ -60,21 +52,31 @@ class PlantWitch(QMainWindow):
         self.vbox = QVBoxLayout() 
         
         self.scroll.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
-        self.scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
+        self.scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
         self.scroll.setWidgetResizable(True)
         self.scroll.setWidget(self.widget)
 
-        self.setCentralWidget(self.scroll)
+        self.button = QPushButton("Change Page")
+        self.button.clicked.connect(lambda: self.change_page(page1))
+        self.vbox.addWidget(self.button)
+
+        self.vbox.addWidget(self.scroll)
+        self.setCentralWidget(QWidget(self))
+        self.centralWidget().setLayout(self.vbox)
+        #self.setCentralWidget(self.scroll)
 
         self.setGeometry(600, 100, 1000, 900)
         self.setWindowTitle(' ')
-        self.show()
+        self.show() 
 
-    def change_pg(page):
-        self.widget=page 
+    def change_page(self,page):
+        #self.widget=page(self)
+        self.widget=page(self, self.names)
+        self.scroll.setWidget(self.widget)   
 
              
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     ex = PlantWitch()
     sys.exit(app.exec())
+    

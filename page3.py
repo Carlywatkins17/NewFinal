@@ -1,38 +1,43 @@
+#from createplants import plants, herbs, vegetables, flowers
+#from saveplantstofile import save_plants
+#from plantuserinput import getuserresponse, plant_names, herb_deets, veg_deets, flower_deets
+#from beduserinput import getuserresponse, beds
+#from beduserinputGUI import getuserresponse, beds
+#from size import dimension, soil
+#from fertilization import fert_cal, nfd
+#from userinteractiontest import PlantWitch
+
 import sys
 from PyQt6.QtWidgets import QApplication, QLabel, QLineEdit, QPushButton, QVBoxLayout, QWidget, QScrollArea, QScrollBar, QMainWindow
 from PyQt6.QtCore import Qt, QSize
 from PyQt6 import *
 from datetime import date, timedelta, datetime
 from createbeds1 import bed
-from createplants import plants, herbs, vegetables, flowers
-from saveplantstofile import save_plants
-from plantuserinput import getuserresponse, plant_names, herb_deets, veg_deets, flower_deets
-#from beduserinput import getuserresponse, beds
-#from beduserinputGUI import getuserresponse, beds
-#from size import dimension, soil
-#from savebedstofile import save_beds
-#from fertilization import fert_cal, nfd
-from userinteractiontest import PlantWitch
-from userinteractiontest import PlantWitch
+from createnames import name
+from savebedstofile import save_beds
+from savenamestofile import save_names
+from storage import beds, names
+
 from page4 import page4
 import json
 from os.path import exists
+from flask import Flask, request, render_template
 
 class page3(QWidget):
 
-    def __init__(self, plantwitch):
+    def __init__(self, plantwitch, names):
         super().__init__()
 
         self.plantwitch=plantwitch  
+        self.names = names
 
         # Remove the widgets from page 2
-        self.gardenerlbl.hide()
-        self.gardenerName.hide()
-        self.gardenlbl.hide()
-        self.gardenName.hide()
-        self.nextbtn.hide()
+        #self.gardenerlbl.hide()
+        #self.gardenerName.hide()
+        #self.gardenlbl.hide()
+        #self.gardenName.hide()
+        #self.nextbtn.hide()
 
-       
 
         # Get the user input from page 2
         name = self.gardenerName.text()
@@ -131,6 +136,8 @@ class page3(QWidget):
         self.nextbtn.setStyleSheet("QPushButton {background-color: black; font-size: 20px; border-radius: 8px; border: 1px solid; border-color: orange; padding: 5px 15px; outline: 0px; color: orange;}")
         self.nextbtn.clicked.connect(self.nextpage)
 
+    
+
         # create a layout
         self.widget.setLayout(self.vbox)
         self.vbox.addWidget(self.gardenHeader)
@@ -156,23 +163,33 @@ class page3(QWidget):
         self.vbox.addWidget(self.nextbtn)
 
 
-        def nextpage(self):
+    def nextpage(self):
             
-            QN = self.txtbed.text() 
-            QL = self.txtLength.text()
-            QW = self.txtwidth.text()
-            QD= self.txtdepth.text()
-            QS= self.txtsun.text()
-            QDr= self.txtdrain.text()
-            Qffd= self.txtffd.text()
-            Qpfd= self.txtpfd.text()
-            Qfinfd= self.txtfinfd.text()
+        QN = self.txtbed.text() 
+        QL = self.txtLength.text()
+        QW = self.txtwidth.text()
+        QD= self.txtdepth.text()
+        QS= self.txtsun.text()
+        QDr= self.txtdrain.text()
+        Qffd= self.txtffd.text()
+        Qpfd= self.txtpfd.text()
+        Qfinfd= self.txtfinfd.text()
         
-            self.beds[QN]=bed(QN, QL, QW, QD, QS, QDr, Qffd, Qpfd, Qfinfd)
+        self.beds[QN]=bed(QN, QL, QW, QD, QS, QDr, Qffd, Qpfd, Qfinfd)
             
-            save_beds(beds)
+        save_beds(beds)
 
-            self.plantwitch.change_pg(page4(self.plantwitch))
+        GDN = self.gardenerName.text()
+        GN = self.gardenName.text()
+
+        self.names[GDN]=name(GDN, GN)
+
+        save_names(self.names)
+
+        self.plantwitch.change_page(page4)
+            
+
+            
 
         #self.setWindowTitle(' ')
 

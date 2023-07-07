@@ -1,34 +1,36 @@
+#from datetime import date, timedelta, datetime
+#from createbeds1 import bed
+#from createplants import plants, herbs, vegetables, flowers
+#from saveplantstofile import save_plants
+#from plantuserinput import getuserresponse, plant_names, herb_deets, veg_deets, flower_deets
+#from beduserinput import getuserresponse, beds
+#from beduserinputGUI import getuserresponse, beds
+#from size import dimension, soil
+#from savebedstofile import save_beds
+#from fertilization import fert_cal, nfd
+#from userinteractiontest import PlantWitch, change_pg
 
 
 import sys
 from PyQt6.QtWidgets import QApplication, QLabel, QLineEdit, QPushButton, QVBoxLayout, QWidget, QScrollArea, QScrollBar, QMainWindow
 from PyQt6.QtCore import Qt, QSize
 from PyQt6 import *
-from datetime import date, timedelta, datetime
-from createbeds1 import bed
-from createplants import plants, herbs, vegetables, flowers
-from saveplantstofile import save_plants
-from plantuserinput import getuserresponse, plant_names, herb_deets, veg_deets, flower_deets
-#from beduserinput import getuserresponse, beds
-#from beduserinputGUI import getuserresponse, beds
-#from size import dimension, soil
-#from savebedstofile import save_beds
-#from fertilization import fert_cal, nfd
-from userinteractiontest import PlantWitch
 from page3 import page3
+from createnames import name 
+from savenamestofile import save_names
+from storage import names 
 import json
-from os.path import exists   
+from os.path import exists
+from flask import Flask, request, render_template   
 
 class page2(QWidget):
 
-    def __init__(self, plantwitch):
+    def __init__(self, plantwitch, names):
         super().__init__()
 
-        self.plantwitch=plantwitch  
-
-        # Remove the widgets from page 1
-        self.welcomelbl.hide()
-        self.welcomebtn.hide()
+        self.plantwitch=plantwitch
+        self.names = names 
+       
 
         # Create a label for page 2
         self.gardenerlbl = QLabel("What is your name?", self)
@@ -56,6 +58,7 @@ class page2(QWidget):
         self.nextbtn.clicked.connect(self.nextpage)
 
         # Create a layout
+        self.vbox = QVBoxLayout(self)
         self.vbox.addWidget(self.gardenerlbl)
         self.vbox.addWidget(self.gardenerName)
         self.vbox.addStretch()
@@ -66,5 +69,17 @@ class page2(QWidget):
         self.vbox.addStretch()
         self.setContentsMargins(100,100,100,100)
 
-        def nextpage(self):
-            self.plantwitch.change_pg(page3(self.plantwitch))
+
+    def nextpage(self):
+
+        GDN = self.gardenerName.text() 
+        GN = self.gardenName.text()
+
+        self.names[GDN]=name(GDN, GN) 
+
+        save_names(self.names) 
+
+        self.plantwitch.change_page(page3)
+    #self.plantwitch.change_page(page2(self.plantwitch))
+        
+

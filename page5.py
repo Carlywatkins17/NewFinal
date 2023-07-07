@@ -1,24 +1,25 @@
+
 import sys
 from PyQt6.QtWidgets import QApplication, QLabel, QLineEdit, QPushButton, QVBoxLayout, QWidget, QScrollArea, QScrollBar, QMainWindow
 from PyQt6.QtCore import Qt, QSize
 from PyQt6 import *
 from datetime import date, timedelta, datetime
-from createbeds1 import bed
+#from createbeds1 import bed
 from createplants import plants, herbs, vegetables, flowers
 from saveplantstofile import save_plants
-from plantuserinput import getuserresponse, plant_names, herb_deets, veg_deets, flower_deets
+#from plantuserinput import getuserresponse, plant_names, herb_deets, veg_deets, flower_deets
 #from beduserinput import getuserresponse, beds
 #from beduserinputGUI import getuserresponse, beds
 #from size import dimension, soil
 #from savebedstofile import save_beds
 #from fertilization import fert_cal, nfd
 #test comment
-from userinteractiontest import PlantWitch
-from page6 import page6
+#from userinteractiontest import PlantWitch
+#from page6 import page6
 import json
 from os.path import exists
 
-class pag5(QWidget):
+class page5(QWidget):
 
     def __init__(self, plantwitch):
         super().__init__()
@@ -133,6 +134,7 @@ class pag5(QWidget):
         self.txtpdep  = QLineEdit(self)
         self.txtpdep .setAlignment(Qt.AlignmentFlag.AlignLeft)
         self.txtpdep .setStyleSheet("QLineEdit {background-color: black; font-size: 20px; border-radius: 8px; border: 1px solid; border-color: orange; padding: 5px 15px; outline: 0px; color: orange;}")
+
 
         self.lblpspc = QLabel('What is the plant spacing for ' + self.txtpname.text() + ' ?: ', self)
         self.lblpspc.setAlignment(Qt.AlignmentFlag.AlignLeft)
@@ -396,5 +398,7 @@ class pag5(QWidget):
             save_plants(plant_names)
 
             self.plantwitch.change_pg(page6(self.plantwitch))
+
+            
         
         #self.setWindowTitle(' ')

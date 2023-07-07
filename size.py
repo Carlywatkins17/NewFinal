@@ -6,26 +6,28 @@
 
 
 from createbeds1 import bed 
-from beduserinput import beds 
+#from beduserinput import beds 
 import json
 from savebedstofile import save_beds
+from storage import beds
+#from userinteractiontest import * 
 
 #calculates the size of the bed 
 
+class Size:
+    def __init__(self):
+        self.dimension()
+        self.soil()
+
+    def dimension():
+        for s in beds:
+            bed=beds[s] 
+            print(bed.name + " is " + str(int(bed.length)*int(bed.width)) + " sq ft" ) 
 
 
-def dimension():
-    for s in beds:
-        bed=beds[s] 
-        print(bed.name + " is " + str(int(bed.length)*int(bed.width)) + " sq ft" ) 
+    # solicits user input on which beds need more soil and calculates the volume needed in units that the product is sold in.
 
-
-                    
-
-
-# solicits user input on which beds need more soil and calculates the volume needed in units that the product is sold in.
-
-def soil():
-    for s in beds:
-        bed=beds[s]
-        print('You need ' + str((int(bed.length) * int(bed.width) * int(bed.depth))/27) + " cubic yards of soil")
+    def soil():
+        for s in beds:
+            bed=beds[s]
+            print('You need ' + str((int(bed.length) * int(bed.width) * int(bed.depth))/27) + " cubic yards of soil")
